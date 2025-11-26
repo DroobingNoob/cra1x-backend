@@ -35,7 +35,7 @@ router.get(
     });
     // Redirect back to frontend with token
     // res.redirect(`http://localhost:5173?token=${token}`);
-    res.redirect(`http://72.61.227.209:4173?token=${token}`);
+    res.redirect(`http://srv1145973.hstgr.cloud?token=${token}`);
   }
 );
 
