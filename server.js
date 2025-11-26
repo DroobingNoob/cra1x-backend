@@ -40,7 +40,6 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-app.use(cors());
 app.use(passport.initialize());
 
 app.post("/test", (req, res) => {
