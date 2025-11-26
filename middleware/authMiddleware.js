@@ -29,7 +29,13 @@ export const verifyUser = (req, res, next) => {
 
 export const verifyAdmin = (req, res, next) => {
     console.log("🧠 Checking admin access for:", req.user?.email);
-  if (!req.user || req.user.email !== "aayushdasgupta0408@gmail.com" || req.user.email !== "cra1xwebsite@gmail.com" || req.user.email !== "cra1x.queries@gmail.com") {
+  // if (!req.user || req.user.email !== "aayushdasgupta0408@gmail.com" || req.user.email !== "cra1xwebsite@gmail.com" || req.user.email !== "cra1x.queries@gmail.com") {
+  //   return res.status(403).json({ message: "Access denied" });
+  // }
+  if (
+    !req.user || 
+    !["aayushdasgupta0408@gmail.com", "cra1xwebsite@gmail.com", "cra1x.queries@gmail.com"].includes(req.user.email)
+  ) {
     return res.status(403).json({ message: "Access denied" });
   }
   next();
