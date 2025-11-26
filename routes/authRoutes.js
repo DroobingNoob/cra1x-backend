@@ -35,12 +35,12 @@ router.get(
     });
     // Redirect back to frontend with token
     // res.redirect(`http://localhost:5173?token=${token}`);
-    res.redirect(`https://cra1123x.vercel.app?token=${token}`);
+    res.redirect(`http://72.61.227.209:4173?token=${token}`);
   }
 );
 
 router.get("/check-admin", verifyUser, (req, res) => {
-  const allowedAdmins = ["aayushdasgupta0408@gmail.com"]; // add more if needed
+  const allowedAdmins = ["aayushdasgupta0408@gmail.com","cra1xwebsite@gmail.com","cra1x.queries@gmail.com"]; // add more if needed
   console.log("Decoded user:", req.user);
   const isAdmin = req.user && allowedAdmins.includes(req.user.email);
   res.json({ isAdmin });

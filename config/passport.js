@@ -10,7 +10,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://associate-quick-arrested-surplus.trycloudflare.com/api/auth/google/callback",
+      callbackURL: "http://72.61.227.209:5000/api/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
