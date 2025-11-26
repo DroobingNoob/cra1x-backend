@@ -32,7 +32,7 @@ app.use(cors({
   origin: [
     "https://cra1123x.vercel.app",
     "https://associate-quick-arrested-surplus.trycloudflare.com",
-    "http://72.61.227.209:5173/",
+    "http://72.61.227.209:5173",
     "http://srv1145973.hstgr.cloud"
   ],
   credentials: true,
