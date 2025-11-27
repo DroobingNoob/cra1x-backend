@@ -34,8 +34,8 @@ router.get(
       expiresIn: "7d",
     });
     // Redirect back to frontend with token
-    // res.redirect(`http://localhost:5173?token=${token}`);
-    res.redirect(`https://srv1145973.hstgr.cloud?token=${token}`);
+    res.redirect(`http://localhost:5173?token=${token}`);
+    // res.redirect(`https://srv1145973.hstgr.cloud?token=${token}`);
   }
 );
 
