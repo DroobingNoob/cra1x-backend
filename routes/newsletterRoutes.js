@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/subscribe", subscribeUser);
 router.get("/all", verifyUser, verifyAdmin, getAllEmails);
-router.delete("/:id", verifyToken, verifyAdmin, deleteEmail);
+router.delete("/:id", verifyUser, verifyAdmin, deleteEmail);
 
 
 export default router;
