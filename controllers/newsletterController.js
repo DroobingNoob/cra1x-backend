@@ -13,7 +13,7 @@ export const subscribeUser = async (req, res) => {
     // create new email
     await Newsletter.create({ email });
 
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Successfully subscribed to newsletter!",
     });
   } catch (err) {
