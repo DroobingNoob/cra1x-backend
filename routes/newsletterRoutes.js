@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllEmails, subscribeUser } from "../controllers/newsletterController.js";
+import { getAllEmails, subscribeUser, deleteEmail } from "../controllers/newsletterController.js";
 import { verifyAdmin, verifyUser } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
