@@ -36,3 +36,21 @@ export const getAllEmails = async (req, res) => {
   }
 };
 
+export const deleteEmail = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleted = await Newsletter.findByIdAndDelete(id);
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Email not found." });
+    }
+
+    return res.status(200).json({ message: "Email deleted successfully." });
+  } catch (err) {
+    console.error("Delete Newsletter Error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
