@@ -6,6 +6,8 @@ import {
   updateProduct,
   deleteProduct,
   stockUpdate,
+  getNewArrivals,
+  getRelatedProducts
 } from "../controllers/productController.js";
 import { verifyAdmin, verifyUser } from "../middleware/authMiddleware.js";
 
@@ -13,7 +15,11 @@ const router = express.Router();
 
 // Public
 router.get("/", getProducts);
+router.get("/new-arrivals", getNewArrivals);
+router.get("/related/:id", getRelatedProducts);
 router.get("/:id", getProductById);
+
+
 
 // User
 router.patch("/:id/decrement-stock", verifyUser, stockUpdate);

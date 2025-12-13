@@ -82,5 +82,90 @@ export const stockUpdate =  async (req, res) => {
   }
 };
 
+// Get New Arrivals
+export const getNewArrivals = async (req, res) => {
+  try {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    // Products added in the last 7 days
+    const recentProducts = await Product.find({
+      createdAt: { $gte: oneWeekAgo }
+    }).sort({ createdAt: -1 });
+
+    if (recentProducts.length >= 5) {
+      // If 5 or more, return only these
+      return res.json(recentProducts);
+    }
+
+    // Otherwise return last 8 added products
+    const fallbackProducts = await Product.find()
+      .sort({ createdAt: -1 })
+      .limit(8);
+
+    res.json(fallbackProducts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Get related products (price ±500, same category)
+export const getRelatedProducts = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const currentProduct = await Product.findById(id);
+    if (!currentProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const priceRange = 300;
+
+    // 1️⃣ Primary: same category + similar price
+   let relatedProducts = await Product.find({
+  _id: { $ne: id },
+  visible: true,
+  stock: { $gt: 0 },
+  $expr: {
+    $and: [
+      {
+        $gte: [
+          { $toDouble: "$discounted_price" },
+          currentProduct.discounted_price - priceRange
+        ]
+      },
+      {
+        $lte: [
+          { $toDouble: "$discounted_price" },
+          currentProduct.discounted_price + priceRange
+        ]
+      }
+    ]
+  }
+}).sort({ createdAt: -1 });
+
+
+    // // 3️⃣ Final fallback: bestsellers
+    // if (relatedProducts.length === 0) {
+    //   relatedProducts = await Product.find({
+    //     _id: { $ne: id },
+    //   visible: true,
+    //   stock: { $gt: 0 },
+    //   discounted_price: {
+    //     $gte: currentProduct.discounted_price - priceRange,
+    //     $lte: currentProduct.discounted_price + priceRange,
+    //   },
+    //     visible: true,
+    //   }).limit(8);
+    // }
+
+    res.json(relatedProducts);
+  } catch (error) {
+    console.error("Related products error:", error);
+    res.status(500).json({ message: "Failed to fetch related products" });
+  }
+};
+
+
 
 
